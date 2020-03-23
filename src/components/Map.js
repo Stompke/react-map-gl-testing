@@ -9,6 +9,13 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 const CITIES = [{name: 'test',  longitude: -120.47473814845159, latitude: 47.52488351782222}];
 const dots = [[-120.47473814845159, 47.52488351782222],[-122, 49]];
 
+const geolocateStyle = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  margin: 10
+};
+
 // PureComponent ensures that the markers are only rerendered when data changes
 class Markers extends PureComponent {
   render() {
@@ -26,7 +33,7 @@ function success (pos) {
   lat = pos.coords.latitude;
   lng = pos.coords.longitude;
 }
-navigator.geolocation.getCurrentPosition(success);
+navigator.geolocation.watchPosition(success);
 
 function redraw({project}) {
   const [cx, cy] = project([lng , lat]);
@@ -51,7 +58,7 @@ const  Map = () => {
     
   });
 
-  const [currentLocation, setCurrentLocation ] = useState({});
+  const [currentLocation, setCurrentLocation ] = useState({lat: 0, lng: 0});
 
   const getCoordinates = (e) => {
     console.log(e.lngLat);
@@ -112,10 +119,14 @@ const  Map = () => {
       function options (options) {
         console.log(options)
       }
-    navigator.geolocation.getCurrentPosition(success);
+    navigator.geolocation.watchPosition(success);
 
 
   })
+
+  function newLocation (data) {
+    console.log(data)
+  }
 
   return (
       <>
@@ -132,6 +143,9 @@ const  Map = () => {
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
           showUserLocation={true}
+          onGeolocate={newLocation}
+          style={geolocateStyle}
+
         />
 
         <SVGOverlay redraw={redraw} />
