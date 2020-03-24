@@ -13,7 +13,8 @@ const geolocateStyle = {
   position: 'absolute',
   top: 0,
   left: 0,
-  margin: 10
+  margin: 10,
+  zIndex: 10,
 };
 
 // PureComponent ensures that the markers are only rerendered when data changes
