@@ -70,7 +70,7 @@ const  Map = () => {
             latitude:  lat,
             longitude: lng,
             transitionDuration: 1000,
-            zoom: 14,
+            zoom: 19,
             transitionInterpolator: new FlyToInterpolator(),
 
           }
@@ -128,13 +128,17 @@ const  Map = () => {
     console.log(data)
   }
 
+  const _updateViewport = (viewport) => {
+    setViewport({viewport});
+  }
+
   return (
       <>
     <ReactMapGL
       {...viewport}
       onViewportChange={setViewport}
       mapboxApiAccessToken={MAPBOX_TOKEN}
-      onClick={getCoordinates}
+      // onClick={getCoordinates}
       mapStyle="mapbox://styles/mapbox/satellite-v9"
       cursor='crosshair'
     //   mapStyle={mapStyle} 
@@ -143,8 +147,9 @@ const  Map = () => {
           positionOptions={{enableHighAccuracy: true}}
           trackUserLocation={true}
           showUserLocation={true}
-          onGeolocate={newLocation}
+          // onGeolocate={newLocation}
           style={geolocateStyle}
+          // onViewportChange={_updateViewport}
 
         />
 

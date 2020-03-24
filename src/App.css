@@ -46,3 +46,7 @@
 .x {
   color:black;
 }
+
+.mapboxgl-ctrl.mapboxgl-ctrl-group {
+  z-index:10;
+}
